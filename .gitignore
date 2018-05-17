@@ -1,0 +1,12 @@
+*._*
+*.DS_Store
+
+.htaccess
+
+*.sublime-project
+*.sublime-workspace
+
+node_modules
+
+composer.phar
+composer.lock
