@@ -27,7 +27,9 @@ register_activation_hook( __FILE__, array( 'Recent_Articles', 'onActivation' ) )
 register_deactivation_hook( __FILE__, array( 'Recent_Articles', 'onDeactivation') );
 register_uninstall_hook( __FILE__, array( 'Recent_Articles', 'onUninstall') );
 
-
+// if ( is_admin() ) {
+// }
+// not belong here.
 add_action( 'widgets_init', function() {
 	require_once( 'class-recent-articles-widget.php' );
 	register_widget( 'Recent_Articles_Widget' );

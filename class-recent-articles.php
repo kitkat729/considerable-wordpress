@@ -3,6 +3,7 @@
  * @package Recent_Articles
  */
 
+require_once('class-notification.php');
 
 // main plugin file
 final class Recent_Articles {
