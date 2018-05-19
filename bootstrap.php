@@ -30,8 +30,9 @@ register_uninstall_hook( __FILE__, array( 'Recent_Articles', 'onUninstall') );
 // if ( is_admin() ) {
 // }
 // not belong here.
-add_action( 'widgets_init', function() {
+function recent_articles_widget_init () {
 	require_once( 'class-recent-articles-widget.php' );
 	register_widget( 'Recent_Articles_Widget' );
-});
+}
+add_action( 'widgets_init', 'recent_articles_widget_init' );
 
