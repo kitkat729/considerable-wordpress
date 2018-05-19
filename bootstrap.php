@@ -23,13 +23,12 @@ define( 'RA__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once( 'class-recent-articles.php' );
 
-register_activation_hook( __FILE__, array( 'Recent_Articles', 'onActivation' ) );
-register_deactivation_hook( __FILE__, array( 'Recent_Articles', 'onDeactivation') );
-register_uninstall_hook( __FILE__, array( 'Recent_Articles', 'onUninstall') );
+if ( is_admin() ) {
+	register_activation_hook( __FILE__, array( 'Recent_Articles', 'onActivation' ) );
+	register_deactivation_hook( __FILE__, array( 'Recent_Articles', 'onDeactivation') );
+	register_uninstall_hook( __FILE__, array( 'Recent_Articles', 'onUninstall') );
+}
 
-// if ( is_admin() ) {
-// }
-// not belong here.
 function recent_articles_widget_init () {
 	require_once( 'class-recent-articles-widget.php' );
 	register_widget( 'Recent_Articles_Widget' );
