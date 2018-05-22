@@ -39,6 +39,13 @@ if ( is_admin() ) {
 	});
 }
 
+// when plugin is initialized
+function add_custom_thumbnail_sizes() {
+	add_image_size('ra-sm-thumbnail-size', 100, 100, array( 'center', 'center' ) );	// w, h
+	add_image_size('ra-med-thumbnail-size', 186, 150, array( 'center', 'center' ) );
+}
+add_action('init', 'add_custom_thumbnail_sizes');
+
 function recent_articles_widget_init () {
 	require_once( 'class-recent-articles-widget.php' );
 	register_widget( 'Recent_Articles_Widget' );
@@ -88,9 +95,11 @@ function get_recent_articles(WP_REST_Request $request) {
 		$post->category->id = $term->cat_ID;
 		$post->category->name = $term->cat_name;
 
-		$post->thumbnail = '';
+		$post->thumbnail = null;
 		if ( has_post_thumbnail() ) {
-			$post->thumbnail = get_the_post_thumbnail( get_the_ID() );
+			$post->thumbnail = new stdClass;
+			$post->thumbnail->sm = get_the_post_thumbnail( get_the_ID(), 'ra-sm-thumbnail-size' );
+			$post->thumbnail->med = get_the_post_thumbnail( get_the_ID(), 'ra-med-thumbnail-size' );
 		}
 
 		array_push($data['posts'], $post);

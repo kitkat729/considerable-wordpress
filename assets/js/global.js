@@ -22,7 +22,7 @@ Vue.component('blog-post', {
 	props: ['title', 'permalink', 'thumbnail', 'timestamp', 'category', 'author'],
 	template:
 	`<div class="flex-container post">
-		<div class="column column-left" v-html="thumbnail"></div>
+		<div class="column column-left"><span v-if="thumbnail" v-html="thumbnail.sm"></span><span v-if="thumbnail" v-html="thumbnail.med"></span></div>
 		<div class="column column-right">
 			<div class="category-block"><span class="category-tag" v-html="category.name"></span><span class="timestamp" v-if="timestamp.small"> | {{ timestamp.small }}</span></div>
 			<a :href="permalink" :title="title"><h3 v-html="title"></h3></a>
