@@ -35,74 +35,32 @@ class Recent_Articles_Widget extends WP_Widget {
 			array_push( $html, $args['before_title'] . apply_filters('widget_title', $instance['title'], $instance, $this->id_base) . $args['after_title'] );
 		}
 
-		/*
-			get caller's post type. If post type === 'post', add to query to exclude the current post
+		$api_url = 'http://www-dev.bloggermon.com/wp-json/recent-articles/v1/post/'.get_the_ID();
 
-			wp get posts
-
-				- published
-				- order by date
-				- limit N
-
-		*/
-		$limit = $instance['limit'];
-		$exclude_the_post_itself = true;
-
-		$qry_options = array(
-			'post_status' => 'publish',
-			'orderby' => 'post_modified',
-			'order' => 'DESC',
-		);
-
-		if ( $exclude_the_post_itself ) {
-			$qry_options['post__not_in'] = array( get_the_ID() );
+		$query = array();
+		if ( !empty($instance['limit']) ) {
+			$query['limit'] = $instance['limit'];
 		}
 
-		if ( $limit ) {
-			$qry_options['posts_per_page'] = $limit;
-			$qry_options['no_found_rows'] = true;
-		}
+		$api_url .= ($query ? '?'.http_build_query($query, '', '&amp') : '');
 
-$posts = [];
+$recent_posts = <<<HTML
+<div id="recent-posts" apiUrl="$api_url">
+	<!-- all bind variables must match up with component props -->
+	<blog-post
+		v-for="post in posts"
+		v-bind:key="post.id"
+		v-bind:title="post.title"
+		v-bind:permalink="post.permalink"
+		v-bind:thumbnail="post.thumbnail"
+		v-bind:category="post.category"
+		v-bind:author="post.author"
+		v-bind:timestamp="post.timestamp"
+	></blog-post>
+</div>
+HTML;
 
-		$qry = new \Wp_Query($qry_options);
-		while ( $qry->have_posts() ) {
-			$qry->the_post();
-
-			// lets just build this as an object for now
-			$post = new stdClass;
-			$post->title = get_the_title();
-			$post->date = get_the_date();
-			$post->permalink = get_permalink();
-
-			$post->author = new stdClass;
-			$post->author->id = get_the_author_meta( 'ID' );
-			$post->author->display_name = get_the_author();
-
-			// @todo Get these too!
-			// $post->taxonomy = get_the_terms();
-			// $post->category
-
-			// $post->media = array();
-			// if ( $thumb_id = get_post_thumbnail_id() ) {
-			// 	$media = new stdClass;
-			// 	$media->type = 'thumbnail';
-			// 	$media->url =
-			// }
-
-
-			array_push($posts, $post);
-		}
-		wp_reset_postdata();
-
-		//$posts = var_export($qry->posts);
-		//$posts = var_export($posts);
-
-		if ( $posts ) {
-			array_push($html, '<div>');
-			array_push($html, print_r($posts, true));
-			array_push($html, '</div>');
-		}
+		array_push($html, $recent_posts);
 
 		// widget wrapper
 		array_push( $html, wp_kses_post($args['after_widget']) );
