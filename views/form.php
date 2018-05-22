@@ -17,12 +17,12 @@
 	</p>
 	<p>
 		<?php
-			$limit = !empty( $instance['limit']) ? intval( $instance['limit'] ) : 5;
+			$limit = !empty( $instance['limit']) ? absint( $instance['limit'] ) : 5;
 		?>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ) ?>">
 			<?php _e( 'Limit', 'recent-articles' ) ?>
 		</label>
-		<input class="widefat" type="text" id="<?php echo $this->get_field_id( 'limit' ) ?>"
+		<input class="tiny-text" type="number" step="1" min="1" size="3" id="<?php echo $this->get_field_id( 'limit' ) ?>"
 		name="<?php echo $this->get_field_name( 'limit' ) ?>" value="<?php echo esc_attr( $limit ) ?>">
 	</p>
 </div>
