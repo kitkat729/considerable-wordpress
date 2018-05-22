@@ -14,7 +14,7 @@
 	align-self: center;
 }
 #recent-posts .flex-container {
-	padding: 0 20px; /* @todo review this again */
+	/*padding: 0 20px; /* @todo review this again */
 	margin: 10px auto;
 }
 
@@ -63,6 +63,9 @@
 		width: auto;
 		height: 100%;
 	}
+	#recent-posts .post .category-block {
+		line-height: 9px;
+	}
 }
 @media only screen and (min-width: 728px) {
 	#recent-posts .flex-container .column-left {
@@ -74,6 +77,9 @@
 		display: block;
 		width: auto;
 		height: 100%;
+	}
+	#recent-posts .post .category-block {
+		line-height: 14px;
 	}
 	#recent-posts .post .category-tag {
 		font-size: 14px;
