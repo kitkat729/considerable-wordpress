@@ -1,0 +1,19 @@
+{
+  "name": "recent-articles",
+  "version": "0.1.0",
+  "description": "wordpress plugin recent articles widget",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitkat729/wp-plugin-recent-articles.git"
+  },
+  "author": "hoi kit yuen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kitkat729/wp-plugin-recent-articles/issues"
+  },
+  "homepage": "https://github.com/kitkat729/wp-plugin-recent-articles#readme"
+}
